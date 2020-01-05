@@ -1,0 +1,29 @@
+
+
+function init() {
+    var box = document.querySelectorAll(".box")
+
+
+
+    var turn = 1
+    box.forEach(function (i) {
+
+        i.addEventListener('click', function () {
+
+            if (turn == 1) {
+                i.innerHTML = "x"
+                i.classList.add('x')
+                turn = 2
+            }
+            else {
+                i.innerHTML = "o"
+                i.classList.add('o')
+                turn = 1
+
+            }
+
+        })
+    })
+}
+
+init()

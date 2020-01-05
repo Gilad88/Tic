@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Document</title>
+
+    <link rel="stylesheet" href="xo.css">
+
+</head>
+
+
+
+<body>
+
+    <h1>Tic-Tac-Toe</h1>
+
+    <h2>Now Turn:</h2>
+
+    <div id="stat">
+
+        <div id="board">
+
+            <div>
+
+                <div class="box" id="b0"></div>
+
+                <div class="box" id="b1"></div>
+
+                <div class="box" id="b2"></div>
+
+            </div>
+
+            <div>
+
+                <div class="box" id="b3"></div>
+
+                <div class="box" id="b4"></div>
+
+                <div class="box" id="b5"></div>
+
+            </div>
+
+            <div>
+
+                <div class="box" id="b6"></div>
+
+                <div class="box" id="b7"></div>
+
+                <div class="box" id="b8"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <button id="new-game" onclick=reset()>New -Game</button>
+
+    <button id="undo" onclick=undo(moves)>Undo</button>
+
+    <button id="save" onclick=saveGame(moves)>Save</button>
+
+    <button id="LastGame" onclick=loadGame()>Last Game</button>
+
+
+
+    <script src="js.js"></script>
+
+
+
+</body>
+
+
+
+</html>

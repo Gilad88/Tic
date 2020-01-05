@@ -1,0 +1,119 @@
+//משתנה של כל הלוח
+var board = document.querySelector("#board")
+//משתנים של כל קופסא בלוח
+var b0 = document.getElementById("b0")
+var b1 = document.getElementById("b1")
+var b2 = document.getElementById("b2")
+var b3 = document.getElementById("b3")
+var b4 = document.getElementById("b4")
+var b5 = document.getElementById("b5")
+var b6 = document.getElementById("b6")
+var b7 = document.getElementById("b7")
+var b8 = document.getElementById("b8")
+
+var saveGame = []
+//משתנה של מערך ריק שמקבל אליו כל לחיצה על הלוח
+var arrtor = []
+
+
+var Hturn = document.querySelector("h2")
+//משתנה שקובע תור מי ראשון
+var turn = "x"
+//אובייקטים של שחקן 1 ו2
+var player1 = {
+    name: prompt("player 1: Enter your name"),
+    shape: "x"
+}
+var player2 = {
+    name: prompt("player 2: Enter your name"),
+    shape: "o"
+}
+
+//פונקציה שמאזינה ללחיצה על הלוח
+board.addEventListener('click', function (e) {
+    console.log(e)
+    //תנאי שמחליט תור מי לשחק
+    if (turn == "x") {
+        if (e.target.innerHTML == "") {
+            e.target.innerHTML = "x"
+            e.target.classList.add('x')
+            Hturn.innerHTML = "<div>" + "Now Turn:" + player2.name + "</div>"
+            turn = "o"
+            arrtor.push(e.target);
+            console.log(e.target.innerHTML)
+            console.log(arrtor)
+            for (let l = 0; l < arrtor.length; l++) {
+                console.log(arrtor[l].id);
+
+            }
+        }
+    }
+    else {
+        if (e.target.innerHTML == "") {
+            e.target.innerHTML = "o"
+            e.target.classList.add('o')
+            Hturn.innerHTML = "<div>" + "Now Turn:" + player1.name + "</div>"
+            turn = "x"
+            arrtor.push(e.target);
+        }
+
+    }
+    console.log(turn)
+})
+
+//משתנה של הכפתור משחק חדש
+var res = document.getElementById('new-game')
+//פונקציה שמאזינה לכפתור משחק חדש בעת לחיצה
+res.addEventListener('click', () => {
+    //לולאה שנכנסת לכל ריבוע שיש בו איקס או עיגול ומסירה את הקלאס שלהם ואת הטקסט
+    document.querySelectorAll('.box').forEach(element => {
+        element.classList.remove('x', 'o')
+        element.innerHTML = ''
+    });
+})
+// unduמשתנה של כפתור 
+var undo = document.getElementById('undo')
+//האזנה ללחיצה על כפתור  ובעת לחיצה מוחק את הצעד האחרון
+undo.addEventListener('click', () => {
+    var last = arrtor.length - 1
+    var arrLast = arrtor[last]
+    arrLast.classList.remove('x', 'o')
+    arrLast.innerHTML = ''
+    arrtor.pop()
+    saveGame.pop()
+    if (turn == "x") {
+        turn = "o"
+        Hturn.innerHTML = "<div>" + "Now Turn:" + player2.name + "</div>"
+    }
+    else {
+        turn = "x"
+        Hturn.innerHTML = "<div>" + "Now Turn:" + player1.name + "</div>"
+    }
+})
+var save = document.getElementById('save')
+save.addEventListener('click', () => {
+    var savID = arrtor.map(f => f.id)
+    var savInner = arrtor.map(f => f.innerHTML)
+    var arrId = JSON.stringify(savID)
+    var arrShap = JSON.stringify(savInner)
+    localStorage.GameId = arrId
+    localStorage.GameShap = arrShap
+    console.log(arrId)
+    console.log(arrShap)
+})
+var LastGame = document.getElementById('LastGame')
+LastGame.addEventListener('click', () => {
+    var savedGameId = JSON.parse(localStorage.GameId)
+    var savedGameShap = JSON.parse(localStorage.GameShap)
+    console.log(savedGameId)
+    console.log(savedGameShap)
+
+    for (var index = 0; index < savedGameId.length; index++) {
+        for (var j = 0; j < savedGameShap.length; j++) {
+            document.getElementById(savedGameId[index]).innerHTML = savedGameShap[index]
+            document.getElementById(savedGameId[index]).classList.add(savedGameShap[index])
+            turn = savedGameShap[index - 1]
+            console.log(savedGameShap[index])
+        }
+    }
+})
