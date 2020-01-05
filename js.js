@@ -71,7 +71,7 @@ let combination = [
     [0, 4, 8],
     [2, 4, 6],
 ]
-
+var loadMoveC
 
 var board = document.querySelector("#board")
 function checkWin(box, shape) {
@@ -84,17 +84,21 @@ function checkWin(box, shape) {
             return (document.getElementById(`b${rr}`).innerText == shape) ? 1 : 0
         })
         if (x.reduce((a, b) => a + b, 0) == 3) {
-            console.log("winnnnnnnnnnnn")
+            alert("winnnnnnnnnnnn")
+            let movC = moves.length
+            if (localStorage.getItem("min") === null) {
+                localStorage.min = movC;
+            }
+
+            else {
+                if (movC < parseInt(localStorage.getItem("min"))) {
+                    localStorage.min = movC;
+                }
+            }
             win = true
             console.log(win)
             return true
             
-            /*  let movC = moves.length
-console.log(movC)
-//טוען את השיא צעדים האחרון
-var loadMoveC = JSON.parse(localStorage.MoveC)
-if (movC < loadMoveC) { localStorage.MoveC = movC }
-console.log(loadMoveC) */
         }
 
         //  debugger
@@ -105,7 +109,7 @@ console.log(loadMoveC) */
 
 
     return false
- }
+}
 
 
 // האם חברי הקומבנציה שווים ל-shape
@@ -127,7 +131,7 @@ function sign(box) {
         moves.push(box)
 
         /* בדיקת ניצחון */
-       checkWin(box, currentPlayer.shape)
+        checkWin(box, currentPlayer.shape)
 
         /* החלפת תור */
         currentPlayer = (currentPlayer == player2) ? player1 : player2
@@ -137,7 +141,7 @@ function sign(box) {
 
 
 
-if(win = true){board.removeEventListener("clicjk", (e) => sign())}
+if (win = true) { board.removeEventListener("clicjk", (e) => sign()) }
 board.addEventListener("click", (e) => sign(e.target))
 
 // board.addEventListener(s'click', function (e) {
@@ -171,6 +175,9 @@ function reset() {
         element.innerHTML = ''
     });
     moves = []
+}
+function showC() {
+    alert(loadMoveC)
 }
 function timer() { }
 
